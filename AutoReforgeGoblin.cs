@@ -1,6 +1,7 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent;
 
 namespace AutoReroll
 {
@@ -13,9 +14,9 @@ namespace AutoReroll
             return entity.type == NPCID.GoblinTinkerer;
         }
 
-        public override bool PreChatButtonClicked(NPC npc, bool firstButton)
+        public override bool PreChatButtonClicked(NPC npc, NPCInteraction interaction)
         {
-            if (firstButton == false && !AutoReroll.UseDefaultReforgeMenu)
+            if (!AutoReroll.UseDefaultReforgeMenu)
             {
                 Main.npcChatText = "";
                 AutoReroll.Instance.ReforgeMenu = true;

@@ -10,7 +10,7 @@ namespace GadgetBox
 {
     public static class GadgetMethods
     {
-        public static int ReforgePrice(this Item item, Player player = null)
+        public static long ReforgePrice(this Item item, Player player = null)
         {
             if (item == null || item.IsAir)
             {
@@ -20,7 +20,7 @@ namespace GadgetBox
             {
                 player = Main.LocalPlayer;
             }
-            int reforgePrice = item.value;
+            long reforgePrice = (long)item.value;
             bool canApplyDiscount = true;
             if (ItemLoader.ReforgePrice(item, ref reforgePrice, ref canApplyDiscount))
             {
@@ -40,21 +40,22 @@ namespace GadgetBox
             bool favorited = item.favorited;
             int stack = item.stack;
             Item tempItem = new Item();
-            tempItem.netDefaults(item.netID);
+            tempItem.netDefaults(item.type);
+            tempItem.CloneDefaults(item.type);
             tempItem = item.Clone()/* tModPorter Note: Removed. Use Clone, ResetPrefix or Refresh */;
             if (!reset)
             {
                 tempItem.Prefix(-2);
             }
             item = tempItem.Clone();
-            item.Center = Main.LocalPlayer.Center;
+            (new WorldItem(item)).Center = Main.LocalPlayer.Center;
             item.favorited = favorited;
             item.stack = stack;
             if (!reset)
             {
                 ItemLoader.PostReforge(item);
             }
-            PopupText.NewText(PopupTextContext.ItemReforge, item, item.stack, true, false);
+            PopupText.NewText(PopupTextContext.ItemReforge, item, Main.LocalPlayer.Center, item.stack, true, false);
             if (silent)
             {
                 return;

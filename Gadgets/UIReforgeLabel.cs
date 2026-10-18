@@ -5,6 +5,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.UI;
 
+#pragma warning disable CS0649
+
 namespace GadgetBox.GadgetUI
 {
     internal class UIReforgeLabel : UILeftAlignedLabel
@@ -59,7 +61,7 @@ namespace GadgetBox.GadgetUI
         protected override void DrawSelf(SpriteBatch spriteBatch)
         {
             BackgroundColor = selected ? Color.LightSkyBlue : Color.CornflowerBlue;
-            if (shownItem.expert || shownItem.rare == -12)
+            if (shownItem.expert || shownItem.rare == ItemRarityID.Expert)
             {
                 TextColor = Main.DiscoColor;
             }

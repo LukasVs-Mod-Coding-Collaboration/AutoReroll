@@ -23,7 +23,7 @@ namespace GadgetBox.GadgetUI
         internal UIList reforgeList;
         internal UIMoneyPanel moneyPanel;
         private List<int> selectedPrefixes = new List<int>();
-        private int reforgePrice;
+        private long reforgePrice;
         private bool autoReforge;
         private double tickCounter;
         private double silenceCounter;
@@ -33,7 +33,6 @@ namespace GadgetBox.GadgetUI
         private readonly Item air = new Item();
         public override void OnInitialize()
         {
-            Main.recBigList = false;
             Main.playerInventory = true;
             Main.hidePlayerCraftingMenu = true;
 
@@ -96,8 +95,7 @@ namespace GadgetBox.GadgetUI
         {
             if (!reforgeSlot.item.IsAir)
             {
-                var source = reforgeSlot.item.GetSource_DropAsItem();
-                Main.LocalPlayer.QuickSpawnItem(source, reforgeSlot.item, reforgeSlot.item.stack);
+                Main.LocalPlayer.QuickSpawnItem(new WorldItem(reforgeSlot.item).GetSource_DropAsItem(), reforgeSlot.item.type, reforgeSlot.item.stack);
                 reforgeSlot.item.TurnToAir();
             }
 
@@ -224,7 +222,8 @@ namespace GadgetBox.GadgetUI
         {
             Item controlItem = reforgeSlot.item.Clone();
 
-            controlItem.netDefaults(reforgeSlot.item.netID);
+            controlItem.netDefaults(reforgeSlot.item.type);
+            controlItem.CloneDefaults(reforgeSlot.item.type);
             controlItem = reforgeSlot.item.Clone();
 
             UIReforgeLabel reforgeLabel;
@@ -292,7 +291,8 @@ namespace GadgetBox.GadgetUI
             HashSet<int> prefixes = new HashSet<int>();
             int attempts = PrefixLoader.PrefixCount;
             Item tempItem = reforgeSlot.item.Clone();
-            tempItem.netDefaults(reforgeSlot.item.netID);
+            tempItem.netDefaults(reforgeSlot.item.type);
+            tempItem.CloneDefaults(reforgeSlot.item.type);
             Main.reforgeItem = tempItem;
             while (attempts > 0)
             {

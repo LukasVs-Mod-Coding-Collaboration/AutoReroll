@@ -38,9 +38,9 @@ namespace AutoReroll
                     "BestModifierRoll: MyInterface",
                     delegate
                     {
-                        if (Main.playerInventory && !Main.recBigList)
+                        if (Main.playerInventory)
                         {
-                            if (lastSeenScreenWidth != Main.screenWidth || lastSeenScreenHeight != Main.screenHeight || Main.hasFocus)
+                            if (lastSeenScreenWidth != Main.screenWidth || lastSeenScreenHeight != Main.screenHeight || FocusHelper.AllowInputProcessing)
                             {
                                 userInterface.Recalculate();
                                 lastSeenScreenWidth = Main.screenWidth;

@@ -31,14 +31,14 @@ namespace GadgetBox.GadgetUI
 		{
 			Player player = Main.LocalPlayer;
 
-			if (player.itemAnimation == 0 && player.itemTime == 0)
+			if (player.itemAnimation == 0 && player.itemTime == 0 && Main.mouseItem != null && Main.mouseItem.stack <= 1)
 			{
 
 				if (CanClick?.Invoke() ?? true)
 				{
 
 					Utils.Swap(ref item, ref Main.mouseItem);
-					if (item.type == 0 || item.stack < 1)
+					if (item.type == ItemID.None || item.stack < 1)
 					{
 						item = new Item();
 					}
@@ -61,14 +61,14 @@ namespace GadgetBox.GadgetUI
 							}
 						}
 					}
-					if (Main.mouseItem.type == 0 || Main.mouseItem.stack < 1)
+					if (Main.mouseItem.type == ItemID.None || Main.mouseItem.stack < 1)
 					{
 						Main.mouseItem = new Item();
 					}
 
-					if (Main.mouseItem.type > 0 || item.type > 0)
+					if (Main.mouseItem.type > ItemID.None || item.type > ItemID.None)
 					{
-						Recipe.FindRecipes();
+						Recipe.UpdateRecipeList();
 						SoundEngine.PlaySound(SoundID.Grab);
 					}
 					base.LeftMouseDown(evt);

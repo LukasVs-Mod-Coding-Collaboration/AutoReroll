@@ -1,15 +1,16 @@
 ﻿using System.ComponentModel;
 using Terraria.ModLoader.Config;
+
+#pragma warning disable CS0649
+
 namespace AutoReroll
 {
 	class Config : ModConfig
 	{
 		public override ConfigScope Mode => ConfigScope.ClientSide;
 		[Range(1, 100)]
-		[Label("AutoReforge Speed")]
 		[DefaultValue(10)]
 		[Increment(1)]
-		[Tooltip("Reforge Per Sec")]
 		public int ReforgePerSec;
 		[DefaultValue(false)]
 		public bool UseDefaultReforgeMenu;
