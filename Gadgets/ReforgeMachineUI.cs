@@ -95,10 +95,10 @@ namespace GadgetBox.GadgetUI
         {
             if (!reforgeSlot.item.IsAir)
             {
-                Main.LocalPlayer.QuickSpawnItem(new WorldItem(reforgeSlot.item).GetSource_DropAsItem(), reforgeSlot.item.type, reforgeSlot.item.stack);
+                Item newItem = reforgeSlot.item.Clone();
                 reforgeSlot.item.TurnToAir();
+                Main.LocalPlayer.QuickSpawnItem(new WorldItem(newItem).GetSource_DropAsItem(), newItem);
             }
-
         }
 
         public override void Update(GameTime gameTime)

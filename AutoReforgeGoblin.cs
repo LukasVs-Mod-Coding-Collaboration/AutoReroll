@@ -7,8 +7,6 @@ namespace AutoReroll
 {
     class AutoReforgeGoblin : GlobalNPC
     {
-
-
         public override bool AppliesToEntity(NPC entity, bool lateInstantiation)
         {
             return entity.type == NPCID.GoblinTinkerer;
@@ -16,7 +14,7 @@ namespace AutoReroll
 
         public override bool PreChatButtonClicked(NPC npc, NPCInteraction interaction)
         {
-            if (!AutoReroll.UseDefaultReforgeMenu)
+            if (!AutoReroll.UseDefaultReforgeMenu && interaction is NPCInteractions.Actions.TinkererReforge)
             {
                 Main.npcChatText = "";
                 AutoReroll.Instance.ReforgeMenu = true;
